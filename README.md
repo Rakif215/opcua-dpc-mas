@@ -12,6 +12,48 @@ The system models a decentralized industrial energy grid where every physical en
 
 **Note on Scope:** This repository focuses strictly on the *communication infrastructure* (OPC UA Pub/Sub, `asyncio`). The agents currently use simple deterministic logic to react to network changes. They serve as a foundational "sandbox" upon which advanced AI and negotiation algorithms (e.g., Contract Net Protocols, Reinforcement Learning) can be built in the future.
 
+### System Architecture Flowchart
+
+```mermaid
+flowchart TD
+    %% Define the main network boundary
+    subgraph Network["OPC UA Network (urn:dpc-factory:mas)"]
+        direction TB
+        
+        %% Agents
+        subgraph Agents["Autonomous Agents"]
+            direction LR
+            Producer["Producer Agent\n(OPC UA Server port 4840)"]
+            Consumer["Consumer Agent\n(OPC UA Server port 4841)"]
+            Storage["Storage Agent\n(OPC UA Server port 4842)"]
+        end
+        
+        Runner["DataLogger / Orchestrator\n(simulation_runner.py)"]
+    end
+
+    %% Internal Agent PubSub (Storage logic)
+    Producer -- "Publishes: CurrentGeneration" --> Storage
+    Consumer -- "Publishes: CurrentPowerDemand" --> Storage
+    
+    %% Logger PubSub
+    Producer -. "Publishes: State & Generation" .-> Runner
+    Consumer -. "Publishes: State & Demand" .-> Runner
+    Storage -. "Publishes: State & SoC" .-> Runner
+    
+    %% Output
+    Runner -- "Writes to" --> CSV[("simulation_results.csv")]
+
+    %% Styling
+    classDef agent fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef runner fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
+    classDef storage fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
+    
+    class Producer,Consumer agent;
+    class Storage storage;
+    class Runner runner;
+```
+
+
 ### Key Features
 *   **Dual-Role OPC UA Nodes:** Every agent runs an asynchronous OPC UA Server to expose its state, while actively acting as an OPC UA Client to subscribe to peer data.
 *   **Asynchronous Pub/Sub:** Uses `asyncua` data-change notifications (`SubscriptionHandler`) to push state updates without wasteful continuous polling.
