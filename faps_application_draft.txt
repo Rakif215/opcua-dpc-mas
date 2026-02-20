@@ -1,0 +1,27 @@
+Subject: Application for BA/PA/MA: Communication mechanisms in Multi-Agent Systems via OPC UA
+
+Dear Mr. Werthmann,
+
+I am writing to express my strong interest in the thesis/project position regarding the development of communication mechanisms for Multi-Agent Systems (MAS) based on OPC UA in the Distributed Production (DPC) factory. The challenge of enabling autonomous, near real-time energy coordination in highly flexible production environments aligns perfectly with my academic interests and practical coding experience.
+
+To demonstrate my proactive approach and capability for this specific topic, I have independently developed a prototypical Python architecture that simulates the core requirements of your project description. 
+
+You can review the conceptual prototype on my GitHub here:
+[LINK TO YOUR GITHUB REPOSITORY]
+
+### Prototype Overview:
+I designed a decentralized MAS using Python’s `asyncua` library. The architecture features:
+*   **Dual-Role Agents:** Specialized entities (Consumer, Producer, Storage) that each run an asynchronous OPC UA Server to expose their semantic Information Model (e.g., `CurrentPowerDemand`, `StateOfCharge`).
+*   **Pub/Sub Event-Driven Communication:** Utilizing asyncua data-change notifications, agents dynamically subscribe to one another's continuous output without inefficient polling.
+*   **Autonomous Decision Logic:** A Storage Agent actively monitors the grid balance (Generation vs. Demand) across peer nodes via OPC UA to autonomously toggle between charging and discharging states.
+
+This initial experiment allowed me to tackle the practical complexities of OPC UA object typing and asynchronous network programming. I am confident that these existing skills in Python and standard industry communication protocols provide a strong foundation to hit the ground running on the deeper scientific evaluation and modelling required for the FAPS DC factory project.
+
+I have attached my CV and current transcript of records for your consideration. I am highly motivated to contribute to this research area and would welcome the opportunity to discuss my prototype and the thesis objectives with you in person.
+
+Thank you for your time and consideration.
+
+Best regards,
+
+[YOUR NAME]
+[YOUR CONTACT INFORMATION]

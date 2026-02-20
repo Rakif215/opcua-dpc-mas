@@ -1,0 +1,2 @@
+# DPC Factory MAS – Python dependencies
+asyncua>=1.0.0
