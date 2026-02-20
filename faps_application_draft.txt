@@ -4,18 +4,17 @@ Dear Mr. Werthmann,
 
 I am writing to express my strong interest in the thesis/project position regarding the development of communication mechanisms for Multi-Agent Systems (MAS) based on OPC UA in the Distributed Production (DPC) factory. The challenge of enabling autonomous, near real-time energy coordination in highly flexible production environments aligns perfectly with my academic interests and practical coding experience.
 
-To demonstrate my proactive approach and capability for this specific topic, I have independently developed a prototypical Python architecture that simulates the core requirements of your project description. 
+To realistically prepare for the technical requirements of this thesis, I independently built a prototypical Python "sandbox" to familiarize myself with the `asyncua` library and the core concepts of Multi-Agent Systems. My goal was to proactively tackle the communication infrastructure before the actual project begins.
 
-You can review the conceptual prototype on my GitHub here:
+You can review this conceptual prototype on my GitHub here:
 [LINK TO YOUR GITHUB REPOSITORY]
 
 ### Prototype Overview:
-I designed a decentralized MAS using Python’s `asyncua` library. The architecture features:
-*   **Dual-Role Agents:** Specialized entities (Consumer, Producer, Storage) that each run an asynchronous OPC UA Server to expose their semantic Information Model (e.g., `CurrentPowerDemand`, `StateOfCharge`).
-*   **Pub/Sub Event-Driven Communication:** Utilizing asyncua data-change notifications, agents dynamically subscribe to one another's continuous output without inefficient polling.
-*   **Autonomous Decision Logic:** A Storage Agent actively monitors the grid balance (Generation vs. Demand) across peer nodes via OPC UA to autonomously toggle between charging and discharging states.
+This sandbox implements a decentralized MAS where specialized agents (Consumer, Producer, Storage) act as both async OPC UA Servers and Clients. Using asyncua's Pub/Sub data-change notifications, the agents dynamically subscribe to one another's continuous output without inefficient polling. 
 
-This initial experiment allowed me to tackle the practical complexities of OPC UA object typing and asynchronous network programming. I am confident that these existing skills in Python and standard industry communication protocols provide a strong foundation to hit the ground running on the deeper scientific evaluation and modelling required for the FAPS DC factory project.
+Currently, the agents use simple deterministic logic (e.g., the Storage Agent passively charges when generation exceeds demand). However, having this robust communication layer already built and tested means I am ready to hit the ground running on the actual core of the thesis: implementing advanced AI and negotiation algorithms (such as Contract Net Protocols) on top of these agents.
+
+This initial experiment allowed me to tackle the practical complexities of OPC UA object typing and asynchronous network programming. I am confident that these existing skills provide a strong foundation to focus deeply on the scientific evaluation and modelling required for the FAPS DC factory project.
 
 I have attached my CV and current transcript of records for your consideration. I am highly motivated to contribute to this research area and would welcome the opportunity to discuss my prototype and the thesis objectives with you in person.
 

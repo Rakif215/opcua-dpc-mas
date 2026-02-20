@@ -10,6 +10,8 @@ This prototype was developed as a conceptual demonstration for the **FAPS (Chair
 
 The system models a decentralized industrial energy grid where every physical entity is an autonomous agent. Each agent encapsulates a specialized physics simulation loop and interacts with the network via OPC UA.
 
+**Note on Scope:** This repository focuses strictly on the *communication infrastructure* (OPC UA Pub/Sub, `asyncio`). The agents currently use simple deterministic logic to react to network changes. They serve as a foundational "sandbox" upon which advanced AI and negotiation algorithms (e.g., Contract Net Protocols, Reinforcement Learning) can be built in the future.
+
 ### Key Features
 *   **Dual-Role OPC UA Nodes:** Every agent runs an asynchronous OPC UA Server to expose its state, while actively acting as an OPC UA Client to subscribe to peer data.
 *   **Asynchronous Pub/Sub:** Uses `asyncua` data-change notifications (`SubscriptionHandler`) to push state updates without wasteful continuous polling.
@@ -64,4 +66,4 @@ python simulation_runner.py
 
 ## 💡 Motivation & FAPS Application
 
-This prototype was built as a practical proposal exploring the complexities of Agent-to-Agent communication in Python using established industrial standards. It demonstrates advanced knowledge of asynchronous Python programming (`asyncio`), OPC UA semantic network modelling, and multi-agent system principles—aligning directly with the requirements for the BA/PA/MA position at the FAPS Department.
+This prototype was built as a practical sandbox to explore the complexities of Agent-to-Agent communication in Python using established industrial standards. It demonstrates a proactive approach to learning asynchronous Python programming (`asyncio`) and OPC UA semantic network modelling. It serves to de-risk the communication layer, providing a solid foundation to focus on the advanced negotiation AI required for the BA/PA/MA position at the FAPS Department.
