@@ -88,6 +88,13 @@ class DataLogger:
         self._rows: list[dict] = []
         self._clients: list[Client] = []
         self._subscriptions: list = []
+        
+        # Current state for dashboard visualization
+        self._state = {
+            "producer": {"CurrentGeneration": 0.0, "OperationalState": "Unknown"},
+            "consumer": {"CurrentPowerDemand": 0.0, "OperationalState": "Unknown"},
+            "storage": {"StateOfCharge": 0.0, "OperationalState": "Unknown"},
+        }
 
     def _record(self, agent_key: str, variable: str, value):
         row = {
@@ -101,6 +108,16 @@ class DataLogger:
             "[DataLogger] %s | %s.%s = %s",
             row["timestamp"], agent_key, variable, value,
         )
+        
+        # Update live state JSON for the web dashboard preview
+        if agent_key in self._state and variable in self._state[agent_key]:
+            self._state[agent_key][variable] = value
+            try:
+                import json
+                with open("state.json", "w") as f:
+                    json.dump(self._state, f)
+            except Exception:
+                pass
 
     def _make_callback(self, agent_key: str, var_name: str):
         def cb(node, val, data):

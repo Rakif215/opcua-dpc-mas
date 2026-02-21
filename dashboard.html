@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPC MAS - Smart Factory Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        body {
+            background-color: #0b1120;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b1120 70%);
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .neon-green {
+            color: #34d399;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.6);
+        }
+
+        .neon-blue {
+            color: #60a5fa;
+            text-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
+        }
+
+        .neon-purple {
+            color: #c084fc;
+            text-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
+        }
+
+        .progress-bg {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            height: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease-out;
+        }
+
+        .fill-green {
+            background: linear-gradient(90deg, #059669, #34d399);
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
+        }
+
+        .fill-blue {
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+        }
+
+        .fill-purple {
+            background: linear-gradient(90deg, #9333ea, #c084fc);
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.8);
+        }
+
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .state-Active {
+            background-color: #34d399;
+            box-shadow: 0 0 10px #34d399;
+            animation: pulse 2s infinite;
+        }
+
+        .state-Idle {
+            background-color: #94a3b8;
+        }
+
+        .state-Charging {
+            background-color: #60a5fa;
+            box-shadow: 0 0 10px #60a5fa;
+            animation: pulse 2s infinite;
+        }
+
+        .state-Discharging {
+            background-color: #f43f5e;
+            box-shadow: 0 0 10px #f43f5e;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+        }
+
+        .network-lines {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            z-index: -1;
+        }
+
+        .data-packet {
+            position: absolute;
+            top: -3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 10px #fff;
+            animation: flow 2s linear infinite;
+        }
+
+        @keyframes flow {
+            from {
+                left: 10%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            to {
+                left: 90%;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="flex flex-col h-screen p-8 relative">
+
+    <div class="network-lines">
+        <div class="data-packet" style="animation-delay: 0s; background: #34d399; box-shadow: 0 0 10px #34d399;"></div>
+        <div class="data-packet" style="animation-delay: 0.7s; background: #60a5fa; box-shadow: 0 0 10px #60a5fa;">
+        </div>
+        <div class="data-packet" style="animation-delay: 1.4s; background: #c084fc; box-shadow: 0 0 10px #c084fc;">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="text-center mb-12 mt-4">
+        <h1 class="text-4xl font-extrabold tracking-tight mb-2">Decentralized Smart Factory Energy Grid</h1>
+        <p class="text-slate-400 text-lg">Autonomous OPC UA Agent Dashboard</p>
+    </header>
+
+    <!-- Main Dashboard Grid -->
+    <main class="grid grid-cols-3 gap-8 w-full max-w-7xl mx-auto flex-grow items-center">
+
+        <!-- PRODUCER -->
+        <div
+            class="glass-panel p-8 rounded-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+            <div
+                class="w-24 h-24 rounded-full border-4 border-emerald-500 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                <svg class="w-12 h-12 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold mb-1">Solar Producer Agent</h2>
+            <p class="text-slate-400 mb-6 text-sm">Port 4840</p>
+
+            <div class="w-full text-left mb-2 flex justify-between">
+                <span class="text-sm font-semibold text-slate-300">Current Generation</span>
+                <span id="prod-val" class="font-bold neon-green text-lg">0.00 kW</span>
+            </div>
+            <div class="w-full progress-bg mb-6">
+                <div id="prod-bar" class="progress-fill fill-green" style="width: 0%"></div>
+            </div>
+
+            <div class="mt-auto pt-4 border-t border-slate-700 w-full flex items-center justify-center">
+                <span id="prod-dot" class="pulse-dot state-Unknown"></span>
+                <span id="prod-state" class="font-medium tracking-wide">Unknown</span>
+            </div>
+        </div>
+
+        <!-- CONSUMER -->
+        <div
+            class="glass-panel p-8 rounded-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 z-10">
+            <div
+                class="w-32 h-32 rounded-full border-4 border-blue-500 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(59,130,246,0.3)] bg-slate-800">
+                <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                    </path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold mb-1">Manufacturing Consumer</h2>
+            <p class="text-slate-400 mb-6 text-sm">Port 4841</p>
+
+            <div class="w-full text-left mb-2 flex justify-between">
+                <span class="text-sm font-semibold text-slate-300">Power Demand</span>
+                <span id="cons-val" class="font-bold neon-blue text-2xl">0.00 kW</span>
+            </div>
+            <div class="w-full progress-bg mb-6 h-3">
+                <div id="cons-bar" class="progress-fill fill-blue" style="width: 0%"></div>
+            </div>
+
+            <div class="mt-auto pt-4 border-t border-slate-700 w-full flex items-center justify-center">
+                <span id="cons-dot" class="pulse-dot state-Unknown"></span>
+                <span id="cons-state" class="font-medium tracking-wide">Unknown</span>
+            </div>
+        </div>
+
+        <!-- STORAGE -->
+        <div
+            class="glass-panel p-8 rounded-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+            <div
+                class="w-24 h-24 rounded-full border-4 border-purple-500 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+                <svg class="w-12 h-12 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
+                    </path>
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold mb-1">Battery Storage Agent</h2>
+            <p class="text-slate-400 mb-6 text-sm">Port 4842</p>
+
+            <div class="w-full text-left mb-2 flex justify-between">
+                <span class="text-sm font-semibold text-slate-300">State of Charge (SoC)</span>
+                <span id="stor-val" class="font-bold neon-purple text-lg">0.0%</span>
+            </div>
+            <div class="w-full progress-bg mb-6">
+                <div id="stor-bar" class="progress-fill fill-purple" style="width: 0%"></div>
+            </div>
+
+            <div class="mt-auto pt-4 border-t border-slate-700 w-full flex items-center justify-center">
+                <span id="stor-dot" class="pulse-dot state-Unknown"></span>
+                <span id="stor-state" class="font-medium tracking-wide text-slate-100">Unknown</span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center mt-12 text-slate-500 text-sm">
+        Polling live OPC UA metrics via Simulation Runner • Updating every 500ms
+    </footer>
+
+    <script>
+        function updateUI(data) {
+            // Producer (Max cap ~80kW)
+            const prodKw = data.producer.CurrentGeneration || 0;
+            document.getElementById('prod-val').innerText = prodKw.toFixed(2) + ' kW';
+            document.getElementById('prod-bar').style.width = Math.min((prodKw / 80) * 100, 100) + '%';
+            document.getElementById('prod-state').innerText = data.producer.OperationalState || 'Unknown';
+            document.getElementById('prod-dot').className = `pulse-dot state-${data.producer.OperationalState}`;
+
+            // Consumer (Max load ~80kW)
+            const consKw = data.consumer.CurrentPowerDemand || 0;
+            document.getElementById('cons-val').innerText = consKw.toFixed(2) + ' kW';
+            document.getElementById('cons-bar').style.width = Math.min((consKw / 80) * 100, 100) + '%';
+            document.getElementById('cons-state').innerText = data.consumer.OperationalState || 'Unknown';
+            document.getElementById('cons-dot').className = `pulse-dot state-${data.consumer.OperationalState}`;
+
+            // Storage (SoC 0-100%)
+            const soc = data.storage.StateOfCharge || 0;
+            document.getElementById('stor-val').innerText = soc.toFixed(1) + ' %';
+            document.getElementById('stor-bar').style.width = Math.min(soc, 100) + '%';
+            document.getElementById('stor-state').innerText = data.storage.OperationalState || 'Unknown';
+            document.getElementById('stor-dot').className = `pulse-dot state-${data.storage.OperationalState}`;
+        }
+
+        setInterval(async () => {
+            try {
+                const res = await fetch('state.json?t=' + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    updateUI(data);
+                }
+            } catch (err) {
+                // Silently wait if file isn't ready
+                console.debug("Waiting for state.json...", err);
+            }
+        }, 500);
+    </script>
+</body>
+
+</html>
