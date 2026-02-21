@@ -1,6 +1,6 @@
 # Distributed Production (DPC) Factory – OPC UA Multi-Agent System 🏭⚡
 
-![Live Dashboard Preview](preview.webp)
+![Live Dashboard Preview](preview.gif)
 
 This repository contains a Python-based prototypical implementation of a Multi-Agent System (MAS) for distributed factory energy coordination. It leverages **OPC UA** (`asyncua`) as the core communication middleware to enable standardized, scalable, and near real-time interaction between autonomous energy agents.
 
